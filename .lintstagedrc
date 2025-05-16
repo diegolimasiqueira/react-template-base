@@ -1,0 +1,13 @@
+{
+  "*.{js,jsx,ts,tsx}": [
+    "eslint --fix",
+    "prettier --write",
+    "tsc-files --noEmit"
+  ],
+  "*.{json,md}": [
+    "prettier --write"
+  ],
+  "*.{ts,tsx}": [
+    "vitest related --run"
+  ]
+} 
