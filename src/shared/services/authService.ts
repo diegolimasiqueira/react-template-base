@@ -17,6 +17,7 @@ const MOCK_USER = {
 export interface LoginCredentials {
   email: string;
   password: string;
+  remember?: boolean;
 }
 
 export interface AuthResponse {
@@ -43,8 +44,11 @@ export const authService = {
           name: 'Usuário Teste',
         },
       };
-      localStorage.setItem('auth_token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
+
+      // Se remember for true, usa localStorage, senão usa sessionStorage
+      const storage = credentials.remember ? localStorage : sessionStorage;
+      storage.setItem('auth_token', response.token);
+      storage.setItem('user', JSON.stringify(response.user));
       return response;
     }
 
@@ -54,14 +58,16 @@ export const authService = {
   logout: () => {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user');
+    sessionStorage.removeItem('auth_token');
+    sessionStorage.removeItem('user');
   },
 
   isAuthenticated: (): boolean => {
-    return !!localStorage.getItem('auth_token');
+    return !!(localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token'));
   },
 
   getCurrentUser: () => {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem('user') || sessionStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   },
 }; 
