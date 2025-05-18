@@ -17,6 +17,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import { useAuth } from '@/Features/Auth/Hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { TopBar } from '@/Shared/Components/Layout/TopBar';
+import { ResetPasswordDialog } from '@/Shared/Components/UI/ResetPasswordDialog';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -25,6 +26,9 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [resetOpen, setResetOpen] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +42,18 @@ export default function Login() {
       console.error('[Login] Erro no login:', err);
       setError('Credenciais inválidas. Tente novamente.');
     }
+  };
+
+  const handleResetPassword = async (email: string) => {
+    setResetLoading(true);
+    // Simulação de envio de e-mail (mock)
+    await new Promise((res) => setTimeout(res, 1200));
+    setResetLoading(false);
+    setResetSent(true);
+    setTimeout(() => {
+      setResetSent(false);
+      setResetOpen(false);
+    }, 1800);
   };
 
   console.log('[Login] error state:', error);
@@ -153,7 +169,7 @@ export default function Login() {
               SIGN IN
             </Button>
             <Box textAlign="center" mb={2}>
-              <Link href="#" underline="hover" variant="body2">
+              <Link href="#" underline="hover" variant="body2" onClick={e => { e.preventDefault(); setResetOpen(true); }}>
                 Forgot your password?
               </Link>
             </Box>
@@ -196,6 +212,19 @@ export default function Login() {
           </Box>
         </Paper>
       </Box>
+      <ResetPasswordDialog
+        open={resetOpen}
+        onClose={() => setResetOpen(false)}
+        onSubmit={handleResetPassword}
+        loading={resetLoading}
+      />
+      {resetSent && (
+        <Box position="fixed" top={24} left={0} width="100vw" display="flex" justifyContent="center" zIndex={1400}>
+          <Alert severity="success" sx={{ borderRadius: 2, minWidth: 320 }}>
+            Se um e-mail válido foi informado, você receberá instruções para redefinir sua senha.
+          </Alert>
+        </Box>
+      )}
     </>
   );
 }

@@ -1,246 +1,89 @@
-# React Template Base
+# React Template Base (Privado)
 
-Este é um template base para projetos React com TypeScript, seguindo a ADR-001 da Acelen.
+Este é um **template base privado** para projetos React + TypeScript, seguindo a ADR-001 da Acelen, com arquitetura Feature-Sliced Design, Material UI, Vite, MSW e boas práticas modernas.
 
-## Pré-requisitos
+> **Atenção:** Este repositório é exclusivo para uso interno dos times de desenvolvimento da Acelen. Não compartilhe, distribua ou utilize este template fora do ambiente autorizado.
 
-- Node.js 22.15.1 ou superior
-- npm 11.4.0 ou superior
+---
 
-## Tecnologias Utilizadas
+## Principais Tecnologias
 
-- React 18.3+
+- React 18+
 - TypeScript 5.x
 - Vite
 - Material UI (MUI) 5.x
 - React Router v6
-- ESLint 8.x
-- Prettier
+- ESLint, Prettier
 - Vitest
 - MSW (Mock Service Worker)
+
+## Arquitetura & Organização
+
+- **Feature-Sliced Design**: Separação clara entre features, entidades, páginas e componentes compartilhados.
+- **Componentização**: Todos os componentes globais (Sidebar, TopBar, Breadcrumb, Layout, etc) e de UI seguem padrão de reutilização e estilização local via `sx`.
+- **Temas**: Suporte completo a dark/light, com gradientes, botões e textos consistentes em toda a aplicação.
+- **Mocks**: MSW configurado para simulação de APIs, facilitando desenvolvimento sem backend.
+- **Fluxo de autenticação**: Mock pronto para troca por API real.
+- **Fluxo de reset de senha**: Componente `ResetPasswordDialog` componetizado, visual consistente, pronto para integração real.
 
 ## Estrutura do Projeto
 
 ```
 /src
-├── /app
-│   ├── /config        # Configurações globais
-│   ├── /routes        # Definições de rotas
-│   └── /styles        # Estilos globais
-├── /features          # Funcionalidades específicas
-├── /entities          # Entidades do domínio
-├── /shared            # Componentes e utilitários compartilhados
-├── /pages             # Páginas da aplicação
-├── /assets            # Recursos estáticos
-├── /types             # Tipos TypeScript globais
-└── /tests             # Testes e mocks
+├── /app           # Configurações globais (tema, rotas, estilos)
+├── /features      # Funcionalidades específicas
+├── /entities      # Entidades do domínio
+├── /shared        # Componentes e utilitários compartilhados
+├── /pages         # Páginas da aplicação
+├── /assets        # Recursos estáticos
+├── /types         # Tipos globais
+└── /tests         # Testes e mocks
 ```
 
-## Instalação
+## Como usar este template
 
-1. Instale as dependências:
+1. **Clone o repositório** (acesso restrito):
+   ```bash
+   git clone <url-privada>
+   cd template-base-react
+   npm install
+   npm run dev
+   ```
+2. Crie uma branch para sua feature.
+3. Siga a estrutura e padrões já implementados.
+4. Use os mocks e exemplos para acelerar o desenvolvimento.
+5. Substitua o mock de autenticação e reset de senha pela API real quando necessário.
 
-```bash
-npm install
-```
+## Boas práticas e padrões
 
-## Scripts Disponíveis
+- **Estilização local**: Use `sx` para estilos locais em componentes.
+- **Componentes globais**: Utilize e componetize sempre que possível.
+- **Acessibilidade**: Todos os diálogos, botões e inputs seguem padrões do MUI.
+- **Testes**: Use Vitest e MSW para garantir cobertura e mocks confiáveis.
+- **Consistência visual**: Siga o padrão de temas, gradientes e botões já implementados.
 
-- `npm run dev` - Inicia o servidor de desenvolvimento
-- `npm run build` - Compila o projeto para produção
-- `npm run lint` - Executa o linter
-- `npm run test` - Executa os testes
-- `npm run test:coverage` - Executa os testes com cobertura
+## Fluxos implementados
 
-## Testes
+- **Login**: Com mock, pronto para integração real.
+- **Reset de senha**: Modal componetizado, visual idêntico ao login, pronto para integração real.
+- **Rotas protegidas**: Exemplo de SPA com navegação segura.
+- **Páginas de erro**: 404 e 500 já implementadas.
 
-### Testes Unitários
-- Utilizamos Vitest para testes unitários
-- Cobertura mínima de 80% para serviços, hooks e componentes
-- Testes são executados automaticamente no CI/CD
+## Importante
 
-### Testes de Acessibilidade
-- Configuração do axe-core para testes de acessibilidade
-- Regras habilitadas:
-  - landmark-one-main
-  - page-has-heading-one
-  - region
-- Testes são executados em desenvolvimento
+- **Não utilize este template fora do ambiente autorizado.**
+- **Não compartilhe credenciais, código ou exemplos deste repositório externamente.**
+- Para dúvidas, consulte a ADR-001 ou o time de arquitetura.
 
-### Mocks
-- MSW para simulação de APIs
-- Handlers em `src/tests/mocks/handlers.ts`
-- Configuração em `src/tests/mocks/browser.ts`
-
-## Performance
-
-### Lazy Loading
-- Componentes de página carregados sob demanda
-- Suspense com fallback de loading
-- Otimização de bundle size
-
-### Otimizações
-- React.memo para componentes puros
-- useCallback para funções
-- useMemo para cálculos pesados
-
-## Material UI
-
-O template utiliza Material UI (MUI) como biblioteca de componentes. A configuração do tema está em `src/app/config/theme.ts`.
-
-### Configurações Padrão
-
-- **Botões**: Sem transformação de texto, sem efeito ripple
-- **Campos de Texto**: Variante outlined, largura total
-- **Links**: Sublinhado apenas no hover
-- **Scrollbar**: Estilizada para melhor usabilidade
-- **Tipografia**: Fonte do sistema com fallbacks
-- **Cores**: Paleta padrão do Material Design
-
-### Uso de Componentes
-
-```tsx
-import { Button, TextField } from '@mui/material';
-
-// Use os componentes do MUI diretamente
-<Button variant="contained">Clique Aqui</Button>
-<TextField label="Nome" />
-```
-
-### Customização
-
-Para customizar o tema:
-
-1. Edite `src/app/config/theme.ts`
-2. Adicione novas configurações em `components`
-3. Modifique a paleta de cores em `palette`
-4. Ajuste a tipografia em `typography`
-
-## Páginas Implementadas
-
-- Login
-- Erro 404 (Not Found)
-- Erro 500 (Server Error)
-
-## Testando o Template Base
-
-### Autenticação Mock
-
-O template inclui uma implementação mock de autenticação para facilitar o desenvolvimento e testes. **IMPORTANTE**: Esta implementação deve ser substituída pela autenticação real em produção.
-
-#### Credenciais de Teste
-
-- Email: `teste@acelen.com`
-- Senha: `123456`
-
-#### Arquivos a serem Substituídos
-
-- `src/features/auth/services/authService.ts` - Implemente a autenticação real
-- `src/shared/routes/ProtectedRoute.tsx` - Ajuste conforme necessário
-
-### Fluxo de Teste
-
-1. **Login**
-
-   - Acesse a página de login
-   - Use as credenciais de teste acima
-   - Após login bem-sucedido, você será redirecionado para a página inicial
-
-2. **Rotas Protegidas**
-
-   - Todas as rotas (exceto login e páginas de erro) são protegidas
-   - Tentativas de acesso sem autenticação redirecionam para o login
-
-3. **Páginas de Erro**
-   - Acesse uma URL inexistente para ver a página 404
-   - Para testar a página 500, force um erro no código
-
-## Desenvolvimento
-
-1. Crie uma nova branch para sua feature
-2. Faça suas alterações
-3. Execute os testes
-4. Faça o commit seguindo o padrão de commits
-5. Crie um Pull Request
-
-### Removendo o Mock
-
-Ao iniciar o desenvolvimento real:
-
-1. Remova ou substitua o arquivo `src/features/auth/services/authService.ts`
-2. Implemente a autenticação real usando sua API
-3. Atualize o `ProtectedRoute` conforme necessário
-4. Remova as credenciais de teste do código
-5. Implemente um sistema de gerenciamento de estado adequado (ex: Redux, Context API)
-
-## Licença
-
-Este projeto é proprietário da Acelen. Todos os direitos reservados.
+---
 
 ## 🚀 Iniciando o Projeto
 
 ```bash
-# Instalar dependências
 npm install
-
-# Iniciar o servidor de desenvolvimento
 npm run dev
 ```
 
-## 🔧 Configuração do MSW (Mock Service Worker)
+## Licença
 
-O projeto utiliza o MSW para simular requisições HTTP durante o desenvolvimento. Isso permite testar a aplicação sem depender de um backend real.
-
-### Credenciais de Teste
-
-Para testar o login, use as seguintes credenciais:
-- **Email:** teste@acelen.com
-- **Senha:** 123456
-
-### Estrutura dos Mocks
-
-- `public/mockServiceWorker.js`: Arquivo gerado pelo MSW para interceptar requisições
-- `src/tests/mocks/handlers.ts`: Handlers que definem as respostas mockadas
-- `src/tests/mocks/browser.ts`: Configuração do MSW para ambiente de desenvolvimento
-
-### Como Funciona
-
-1. O MSW intercepta requisições HTTP (como login, logout, etc.)
-2. Retorna respostas definidas nos handlers
-3. Em produção, o MSW é desativado automaticamente
-
-### Exemplo de Handler
-
-```typescript
-http.post('http://localhost:5000/api/api/login', async ({ request }) => {
-  const { email, password } = await request.json();
-  if (email === 'teste@acelen.com' && password === '123456') {
-    return HttpResponse.json({
-      user: { id: 1, name: 'Usuário Teste', email },
-      token: 'mock-token-123'
-    });
-  }
-  return HttpResponse.json({ message: 'Credenciais inválidas' }, { status: 401 });
-});
-```
-
-### Adicionando Novos Handlers
-
-Para adicionar um novo mock:
-
-1. Abra `src/tests/mocks/handlers.ts`
-2. Adicione um novo handler seguindo o padrão existente
-3. Reinicie o servidor de desenvolvimento
-
-## 📝 Scripts Disponíveis
-
-```bash
-# Iniciar o servidor de desenvolvimento
-npm run dev
-
-# Executar testes
-npm test
-
-# Build para produção
-npm run build
-```
+Este projeto é proprietário da Acelen. Todos os direitos reservados. Uso estritamente interno.
