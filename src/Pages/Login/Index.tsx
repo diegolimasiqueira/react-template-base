@@ -46,23 +46,31 @@ export default function Login() {
     <>
       <TopBar />
       <Box
-        sx={{
+        sx={(theme) => ({
           minHeight: '100vh',
-          bgcolor: 'background.default',
+          width: '100vw',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           pt: 10,
-        }}
+          background:
+            theme.palette.mode === 'dark'
+              ? 'radial-gradient(ellipse at 60% 40%, #183b5a 0%, #0a101a 80%)'
+              : 'radial-gradient(ellipse at 60% 40%, #e3f0ff 0%, #f4f6fb 80%)',
+        })}
       >
         <Paper
           elevation={8}
-          sx={{
+          sx={(theme) => ({
             p: 4,
             width: 360,
-            maxWidth: '90vw',
+            maxWidth: '90vw',            
+            background: 
+              theme.palette.mode === 'dark'
+              ? 'radial-gradient(ellipse at 60% 40%, #001 0%, #0a101a 80%)'
+              : 'radial-gradient(ellipse at 60% 40%, #e3f0ff 0%, #f4f6fb 80%)',
             borderRadius: 3,
-          }}
+          })}
         >
           <Typography variant="h4" fontWeight={700} mb={2} align="center">
             Sign in
@@ -78,6 +86,18 @@ export default function Login() {
               onChange={e => setEmail(e.target.value)}
               autoComplete="email"
               required
+              size="small"
+              sx={(theme) => ({
+                '& input:-webkit-autofill': {
+                  WebkitBoxShadow:
+                    theme.palette.mode === 'dark'
+                      ? '0 0 0 1000px #000 inset'
+                      : '0 0 0 1000px #e3f0ff inset',
+                  WebkitTextFillColor:
+                    theme.palette.mode === 'dark' ? '#fff' : '#1a1a1a',
+                  transition: 'background-color 5000s ease-in-out 0s',
+                },
+              })}
             />
             <TextField
               label="Password"
@@ -88,6 +108,18 @@ export default function Login() {
               onChange={e => setPassword(e.target.value)}
               autoComplete="current-password"
               required
+              size="small"
+              sx={(theme) => ({
+                '& input:-webkit-autofill': {
+                  WebkitBoxShadow:
+                    theme.palette.mode === 'dark'
+                      ? '0 0 0 1000px #000 inset'
+                      : '0 0 0 1000px #e3f0ff inset',
+                  WebkitTextFillColor:
+                    theme.palette.mode === 'dark' ? '#fff' : '#1a1a1a',
+                  transition: 'background-color 5000s ease-in-out 0s',
+                },
+              })}
             />
             <FormControlLabel
               control={<Checkbox checked={remember} onChange={e => setRemember(e.target.checked)} />}
@@ -96,43 +128,69 @@ export default function Login() {
             />
             <Button
               variant="contained"
-              color="primary"
               fullWidth
-              sx={{ mt: 2, mb: 1 }}
+              sx={(theme) => ({
+                mt: 2,
+                mb: 1,
+                background:
+                  theme.palette.mode === 'dark'
+                    ? 'linear-gradient(90deg, #fff 0%, #fff 100%)'
+                    : '#000',
+                color:
+                  theme.palette.mode === 'dark'
+                    ? '#000'
+                    : '#fff',
+                fontWeight: 700,
+                '&:hover': {
+                  background:
+                    theme.palette.mode === 'dark'
+                      ? 'linear-gradient(90deg, #ccc 0%, #ccc 100%)'
+                      : '#222',
+                },
+              })}
               type="submit"
             >
               SIGN IN
             </Button>
-            <Box textAlign="right" mb={2}>
+            <Box textAlign="center" mb={2}>
               <Link href="#" underline="hover" variant="body2">
                 Forgot your password?
               </Link>
             </Box>
           </Box>
           <Divider>or</Divider>
-          <Stack direction="column" spacing={1} mt={2}>
+          <Stack direction="column" spacing={1} mt={2}>            
             <Button
-              variant="outlined"
-              startIcon={<GoogleIcon />}
+              variant="outlined"              
               fullWidth
-              color="inherit"
+              sx={(theme) => ({
+                mt: 2,
+                mb: 1,
+                background:
+                  theme.palette.mode === 'dark'
+                    ? 'linear-gradient(90deg, #fff 0%, #fff 100%)'
+                    : '#000',
+                color:
+                  theme.palette.mode === 'dark'
+                    ? '#000'
+                    : '#fff',
+                fontWeight: 700,
+                '&:hover': {
+                  background:
+                    theme.palette.mode === 'dark'
+                      ? 'linear-gradient(90deg, #ccc 0%, #ccc 100%)'
+                      : '#222',
+                },
+              })}
             >
-              SIGN IN WITH GOOGLE
-            </Button>
-            <Button
-              variant="outlined"
-              startIcon={<FacebookIcon />}
-              fullWidth
-              color="inherit"
-            >
-              SIGN IN WITH FACEBOOK
+              Login with SSO
             </Button>
           </Stack>
           <Box mt={3} textAlign="center">
             <Typography variant="body2">
               Don't have an account?{' '}
               <Link href="#" underline="hover">
-                Sign up
+                Request access
               </Link>
             </Typography>
           </Box>

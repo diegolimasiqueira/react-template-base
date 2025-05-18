@@ -5,6 +5,7 @@ import React, { Suspense } from 'react';
 import { CircularProgress, Box } from '@mui/material';
 import { SettingsPage } from '@/Pages/Settings/Index';
 import { Layout } from '@/Shared/Components/Layout/Layout';
+import Samples from '@/Pages/Samples/Index';
 
 // Lazy loading dos componentes
 const Login = React.lazy(() => import('@/Pages/Login/Index'));
@@ -39,6 +40,16 @@ export const AppRoutes = () => (
           <ProtectedRoute>
             <Layout>
               <SettingsPage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/samples"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Samples />
             </Layout>
           </ProtectedRoute>
         }

@@ -10,6 +10,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import TableChartIcon from '@mui/icons-material/TableChart';
 import Toolbar from '@mui/material/Toolbar';
 import { TopBar } from './TopBar';
 import { Link, useLocation } from 'react-router-dom';
@@ -31,11 +32,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+          },
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
           <List>
             <ListItem disablePadding>
               <ListItemButton
@@ -43,18 +49,24 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 to="/"
                 selected={location.pathname === '/'}
               >
-                <ListItemIcon><HomeIcon /></ListItemIcon>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
                 <ListItemText primary="Home" />
               </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>             
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton
                 component={Link}
-                to="/dashboard"
-                selected={location.pathname === '/dashboard'}
+                to="/samples"
+                selected={location.pathname === '/samples'}
               >
-                <ListItemIcon><DashboardIcon /></ListItemIcon>
-                <ListItemText primary="Dashboard" />
+                <ListItemIcon>
+                  <TableChartIcon />
+                </ListItemIcon>
+                <ListItemText primary="Samples" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
@@ -63,16 +75,22 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 to="/settings"
                 selected={location.pathname === '/settings'}
               >
-                <ListItemIcon><SettingsIcon /></ListItemIcon>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
                 <ListItemText primary="Settings" />
               </ListItemButton>
             </ListItem>
           </List>
-          <Divider />
+        </Box>
+        <Divider />
+        <Box sx={{ mb: 2 }}>
           <List>
             <ListItem disablePadding>
               <ListItemButton onClick={logout}>
-                <ListItemIcon><LogoutIcon /></ListItemIcon>
+                <ListItemIcon>
+                  <LogoutIcon />
+                </ListItemIcon>
                 <ListItemText primary="Logout" />
               </ListItemButton>
             </ListItem>
@@ -82,10 +100,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       <Box component="main" sx={{ flexGrow: 1, bgcolor: 'background.default' }}>
         <Toolbar />
         <Breadcrumb />
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
+        <Box sx={{ p: 3 }}>{children}</Box>
       </Box>
     </Box>
   );
-}; 
+};
