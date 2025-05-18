@@ -17,6 +17,7 @@ Este é um template base para projetos React com TypeScript, seguindo a ADR-001 
 - ESLint 8.x
 - Prettier
 - Vitest
+- MSW (Mock Service Worker)
 
 ## Estrutura do Projeto
 
@@ -31,7 +32,8 @@ Este é um template base para projetos React com TypeScript, seguindo a ADR-001 
 ├── /shared            # Componentes e utilitários compartilhados
 ├── /pages             # Páginas da aplicação
 ├── /assets            # Recursos estáticos
-└── /types             # Tipos TypeScript globais
+├── /types             # Tipos TypeScript globais
+└── /tests             # Testes e mocks
 ```
 
 ## Instalação
@@ -49,6 +51,38 @@ npm install
 - `npm run lint` - Executa o linter
 - `npm run test` - Executa os testes
 - `npm run test:coverage` - Executa os testes com cobertura
+
+## Testes
+
+### Testes Unitários
+- Utilizamos Vitest para testes unitários
+- Cobertura mínima de 80% para serviços, hooks e componentes
+- Testes são executados automaticamente no CI/CD
+
+### Testes de Acessibilidade
+- Configuração do axe-core para testes de acessibilidade
+- Regras habilitadas:
+  - landmark-one-main
+  - page-has-heading-one
+  - region
+- Testes são executados em desenvolvimento
+
+### Mocks
+- MSW para simulação de APIs
+- Handlers em `src/tests/mocks/handlers.ts`
+- Configuração em `src/tests/mocks/browser.ts`
+
+## Performance
+
+### Lazy Loading
+- Componentes de página carregados sob demanda
+- Suspense com fallback de loading
+- Otimização de bundle size
+
+### Otimizações
+- React.memo para componentes puros
+- useCallback para funções
+- useMemo para cálculos pesados
 
 ## Material UI
 
@@ -101,8 +135,8 @@ O template inclui uma implementação mock de autenticação para facilitar o de
 
 #### Arquivos a serem Substituídos
 
-- `src/shared/services/authService.ts` - Implemente a autenticação real
-- `src/shared/components/ui/ProtectedRoute.tsx` - Ajuste conforme necessário
+- `src/features/auth/services/authService.ts` - Implemente a autenticação real
+- `src/shared/routes/ProtectedRoute.tsx` - Ajuste conforme necessário
 
 ### Fluxo de Teste
 
@@ -133,7 +167,7 @@ O template inclui uma implementação mock de autenticação para facilitar o de
 
 Ao iniciar o desenvolvimento real:
 
-1. Remova ou substitua o arquivo `src/shared/services/authService.ts`
+1. Remova ou substitua o arquivo `src/features/auth/services/authService.ts`
 2. Implemente a autenticação real usando sua API
 3. Atualize o `ProtectedRoute` conforme necessário
 4. Remova as credenciais de teste do código
@@ -142,3 +176,71 @@ Ao iniciar o desenvolvimento real:
 ## Licença
 
 Este projeto é proprietário da Acelen. Todos os direitos reservados.
+
+## 🚀 Iniciando o Projeto
+
+```bash
+# Instalar dependências
+npm install
+
+# Iniciar o servidor de desenvolvimento
+npm run dev
+```
+
+## 🔧 Configuração do MSW (Mock Service Worker)
+
+O projeto utiliza o MSW para simular requisições HTTP durante o desenvolvimento. Isso permite testar a aplicação sem depender de um backend real.
+
+### Credenciais de Teste
+
+Para testar o login, use as seguintes credenciais:
+- **Email:** teste@acelen.com
+- **Senha:** 123456
+
+### Estrutura dos Mocks
+
+- `public/mockServiceWorker.js`: Arquivo gerado pelo MSW para interceptar requisições
+- `src/tests/mocks/handlers.ts`: Handlers que definem as respostas mockadas
+- `src/tests/mocks/browser.ts`: Configuração do MSW para ambiente de desenvolvimento
+
+### Como Funciona
+
+1. O MSW intercepta requisições HTTP (como login, logout, etc.)
+2. Retorna respostas definidas nos handlers
+3. Em produção, o MSW é desativado automaticamente
+
+### Exemplo de Handler
+
+```typescript
+http.post('http://localhost:5000/api/api/login', async ({ request }) => {
+  const { email, password } = await request.json();
+  if (email === 'teste@acelen.com' && password === '123456') {
+    return HttpResponse.json({
+      user: { id: 1, name: 'Usuário Teste', email },
+      token: 'mock-token-123'
+    });
+  }
+  return HttpResponse.json({ message: 'Credenciais inválidas' }, { status: 401 });
+});
+```
+
+### Adicionando Novos Handlers
+
+Para adicionar um novo mock:
+
+1. Abra `src/tests/mocks/handlers.ts`
+2. Adicione um novo handler seguindo o padrão existente
+3. Reinicie o servidor de desenvolvimento
+
+## 📝 Scripts Disponíveis
+
+```bash
+# Iniciar o servidor de desenvolvimento
+npm run dev
+
+# Executar testes
+npm test
+
+# Build para produção
+npm run build
+```
