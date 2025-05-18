@@ -12,7 +12,7 @@ import { CircularProgress, Box } from '@mui/material';
 
 // Inicializa o MSW em desenvolvimento
 if (process.env.NODE_ENV === 'development') {
-  const { worker } = await import('./Tests/Mocks/browser');
+  const { worker } = await import('@/Tests/Mocks/browser');
   worker.start();
 }
 

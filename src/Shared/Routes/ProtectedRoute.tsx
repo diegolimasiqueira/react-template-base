@@ -6,8 +6,8 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   console.log('[ProtectedRoute] Verificando autenticação:', { user });
 
   if (!user) {
-    console.log('[ProtectedRoute] Usuário não autenticado, redirecionando para login');
-    return <Navigate to="/login" replace />;
+    console.log('[ProtectedRoute] Usuário não autenticado, redirecionando para signin');
+    return <Navigate to="/signin" replace />;
   }
 
   console.log('[ProtectedRoute] Usuário autenticado, renderizando rota protegida');

@@ -1,5 +1,4 @@
 import { useAuth } from '@/Features/Auth/Hooks/useAuth';
-import { CustomButton } from '@/Shared/Components/UI/CustomButton';
 import { Typography, Box } from '@mui/material';
 
 export default function Home() {

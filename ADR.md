@@ -32,8 +32,18 @@ Estrutura de Pastas
 │   │   ├── /Types
 │   │   │   ├── FeatureTypes.ts
 │   │   │   └── FeatureInterfaces.ts
-│   │   └── /Constants
-│   │       └── featureConstants.ts
+│   │   ├── /Constants
+│   │   │   └── featureConstants.ts
+│   │   ├── /Pages
+│   │   │   └── /[PageName]
+│   │   │       ├── Index.tsx
+│   │   │       └── /Components
+│   │   │           ├── PageSpecificComponent.tsx
+│   │   │           └── PageSubComponent.tsx
+│   │   └── /Tests
+│   │       ├── /Mocks
+│   │       │   └── mockData.ts
+│   │       └── feature.test.tsx
 ├── /Entities
 │   ├── /[EntityName]  # Ex.: User, Product
 │   │   ├── /Types
@@ -69,11 +79,11 @@ Estrutura de Pastas
 │   └── /Constants
 │       └── globalConstants.ts
 ├── /Pages
-│   ├── /[PageName]    # Ex.: Home, Profile
-│   │   ├── Index.tsx
-│   │   └── /Components
-│   │       ├── PageSpecificComponent.tsx
-│   │       └── PageSubComponent.tsx
+│   └── /[PageName]    # Ex.: Home, Profile (apenas páginas que não pertencem a features específicas)
+│       ├── Index.tsx
+│       └── /Components
+│           ├── PageSpecificComponent.tsx
+│           └── PageSubComponent.tsx
 ├── /Assets
 │   ├── /Images
 │   │   ├── logo.png

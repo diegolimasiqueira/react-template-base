@@ -1,19 +1,30 @@
-import { User } from '@/Entities/User/Types/index';
-import { httpClient } from '@/Shared/Services/httpClient';
+import { User } from '@/Features/Auth/Types/auth';
+import { httpClient } from './httpClient';
 
 interface LoginResponse {
   token: string;
   user: User;
 }
 
-export const login = async (email: string, password: string): Promise<LoginResponse> => {
-  return httpClient.post<LoginResponse>('/api/login', { email, password });
-};
+class AuthService {
+  async login(email: string, password: string): Promise<User> {
+    const response = await httpClient.post<LoginResponse>('/api/login', { email, password });
+    localStorage.setItem('token', response.token);
+    return response.user;
+  }
 
-export const logout = async (): Promise<void> => {
-  return httpClient.post('/api/logout');
-};
+  async logout(): Promise<void> {
+    await httpClient.post('/api/logout');
+    localStorage.removeItem('token');
+  }
 
-export const getCurrentUser = async (): Promise<User> => {
-  return httpClient.get<User>('/api/user/me');
-}; 
+  async resetPassword(email: string): Promise<void> {
+    await httpClient.post('/api/reset-password', { email });
+  }
+
+  async getCurrentUser(): Promise<User> {
+    return httpClient.get<User>('/api/user/me');
+  }
+}
+
+export const authService = new AuthService(); 
