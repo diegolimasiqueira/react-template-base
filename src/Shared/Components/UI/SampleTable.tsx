@@ -190,11 +190,14 @@ export const SampleTable = () => {
           bgcolor: theme.palette.mode === 'dark' ? 'rgba(12,16,23,255)' : '#fff',
           borderTop: '1px solid',
           borderColor: 'divider',
-          borderRadius: 3,
+          borderRadius: 2,
           px: 2,
           '.MuiTablePagination-toolbar': {
-            minHeight: 8,
+            minHeight: 40,
+            height: 40,
             color: theme.palette.mode === 'dark' ? '#fff' : '#1a1a1a',
+            paddingTop: 0,
+            paddingBottom: 0,
           },
           '.MuiTablePagination-selectLabel, .MuiTablePagination-input, .MuiTablePagination-displayedRows': {
             fontSize: 14,
