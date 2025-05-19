@@ -4,7 +4,7 @@ export const topBarTheme = {
   gradients: {
     background: {
       dark: 'linear-gradient(180deg, rgba(24,28,36,0.85) 30%, rgba(12,16,23,0.85) 100%)',
-      light: 'linear-gradient(45deg, #1976d2 30%, #2196f3 90%)'      
+      light: 'linear-gradient(45deg,rgb(108, 160, 211) 30%, #2196f3 90%)'      
     }
   },
   colors: {

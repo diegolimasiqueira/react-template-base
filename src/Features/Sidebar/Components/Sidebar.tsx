@@ -12,7 +12,8 @@ import {
 import {
   Home as HomeIcon,
   TableChart as TableChartIcon,
-  Logout as LogoutIcon
+  Logout as LogoutIcon,
+  CalendarMonth as CalendarMonthIcon
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/Features/Auth/Hooks/useAuth';
@@ -70,6 +71,32 @@ export const Sidebar = ({ width = 240 }: SidebarProps) => {
                 <TableChartIcon />
               </ListItemIcon>
               <ListItemText primary="Samples" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton
+              component={Link}
+              to="/formsample"
+              selected={location.pathname === '/formsample'}
+              sx={styles.listItemButton}
+            >
+              <ListItemIcon sx={styles.listItemIcon}>
+                <TableChartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Form Sample" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton
+              component={Link}
+              to="/calendar"
+              selected={location.pathname === '/calendar'}
+              sx={styles.listItemButton}
+            >
+              <ListItemIcon sx={styles.listItemIcon}>
+                <CalendarMonthIcon />
+              </ListItemIcon>
+              <ListItemText primary="Calendar" />
             </ListItemButton>
           </ListItem>
         </List>

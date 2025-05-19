@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '@/Features/Auth/Types/auth';
-import { authService } from '@/Features/Auth/services/authService';
+import { User } from '../Types/auth';
+import { authService } from '../services/authService';
 import { Box, CircularProgress } from '@mui/material';
 
 interface AuthContextType {

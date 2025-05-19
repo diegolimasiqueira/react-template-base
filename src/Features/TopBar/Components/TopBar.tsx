@@ -12,7 +12,8 @@ import {
 import {
   Notifications as NotificationsIcon,
   DarkMode as DarkModeIcon,
-  LightMode as LightModeIcon
+  LightMode as LightModeIcon,
+  Menu as MenuIcon
 } from '@mui/icons-material';
 import { useAuth } from '@/Features/Auth/Hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
@@ -55,9 +56,27 @@ export const TopBar = ({ onMenuClick }: TopBarProps) => {
   return (
     <AppBar position="fixed" sx={styles.appBar}>
       <Toolbar sx={styles.toolbar}>
-        <Typography variant="h6" noWrap component="div" sx={styles.title}>
-          Acelen
-        </Typography>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={onMenuClick}
+          sx={{ mr: 2, display: { sm: 'none' } }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Box
+          component="img"
+          src="src/Assets/Logo/acelen-logo.png"
+          alt="Acelen Logo"
+          sx={{
+            height: 20,
+            width: 'auto',
+            objectFit: 'contain',
+            display: { xs: 'none', sm: 'block' }
+          }}
+        />
+        <Box sx={{ flexGrow: 1 }} />
 
         <Box sx={styles.actions}>
           <IconButton color="inherit" onClick={handleNotificationsClick}>

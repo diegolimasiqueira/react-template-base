@@ -5,6 +5,8 @@ import React, { Suspense } from 'react';
 import { CircularProgress, Box } from '@mui/material';
 import { Layout } from '@/Shared/Components/Layout/Layout';
 import { SampleTable } from '@/Features/Samples/Components/SampleTable';
+import { ShipForm } from '@/Features/ShipForm/Components/ShipForm';
+import { CalendarBoard } from '@/Features/Calendar/Components/CalendarBoard';
 
 // Lazy loading dos componentes
 const SignIn = React.lazy(() => import('@/Features/Auth/Pages/SignIn/Index'));
@@ -39,6 +41,26 @@ export const AppRoutes = () => (
           <ProtectedRoute>
             <Layout>
               <SampleTable />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/formsample"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <ShipForm />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/calendar"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <CalendarBoard />
             </Layout>
           </ProtectedRoute>
         }
