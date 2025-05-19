@@ -1,6 +1,6 @@
 ADR-001: Padrão de Estrutura para Projetos React com TypeScript na Acelen
 Status
-Aceita
+Proposta
 Contexto
 Na Acelen, buscamos padronizar o desenvolvimento de aplicações front-end para garantir consistência, eficiência e escalabilidade em novos projetos React. Com o avanço das tecnologias front-end em 2025, nosso objetivo é adotar uma estrutura que maximize a eficiência no desenvolvimento e manutenção, utilize ferramentas modernas e facilite atualizações para versões futuras do React e outras dependências, assegurando transições suaves com mínimo risco de quebras.
 A escolha por React com TypeScript reflete a necessidade de interfaces robustas, tipadas e fáceis de manter. Para a camada de UI, adotamos o Material UI (MUI) como design system, por sua maturidade, suporte a temas personalizados, acessibilidade e alinhamento com o Material Design. A estrutura organizacional deve promover clareza, suportar equipes de diferentes tamanhos e facilitar a integração com back-ends, mantendo a flexibilidade para diversos projetos. Este padrão será aplicado a todos os novos projetos React na Acelen, com repositórios gerenciados no Azure DevOps para controle de versão e automação de CI/CD.
@@ -215,4 +215,3 @@ TypeScript Handbook
 Vite Documentation
 Material UI Documentation (https://mui.com/material-ui/)
 Azure DevOps Documentation
-
